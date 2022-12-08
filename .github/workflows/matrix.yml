@@ -9,6 +9,12 @@ jobs:
       matrix:
         node-version: [12,14,16]
         operating-system: [ubuntu-latest, windows-latest]
+        include: # Allows to add standalone combinations and to add list with dashes of key values that should be included
+          - node-version: 18 # includes the node-version18 on the version running on ubuntu-latest
+            operating-system: ubuntu-latest
+        exclude: # excludes the node version 12 running on windows-latest
+          - node-version: 12
+            operating-system: windows-latest
     #now we set the runner dynamically
     runs-on: ${{ matrix.operating-system }} # the github actions will run this job multiple times, once per value in he operating-system key
     steps:

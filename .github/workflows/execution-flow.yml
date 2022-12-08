@@ -33,11 +33,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Test code
+        id: run-tests # give it an id to be referenced
         run: npm run test
       #github actions default flow is: If one step fails, the execution stop
       #other dependent jobs using "needs" woul be cancelled/ aborted if a previous job fails
       - name: Upload test report
-        if: #if the test step fails,
+        if: steps.run-tests.outcome == 'failure' #if the test step fails, this step runs and this step will not run when tests succeeds
         uses: actions/upload-artifact@v3
         with:
           name: test-report

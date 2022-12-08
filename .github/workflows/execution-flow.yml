@@ -28,9 +28,11 @@ jobs:
         id: cache
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: node_modules
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        #if we aren't able to use the cache, manually install dependencies
         run: npm ci
       - name: Test code
         id: run-tests # give it an id to be referenced
@@ -56,6 +58,8 @@ jobs:
           path: ~/.npm
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        #if we aren't able to use the cache, manually install dependencies
         run: npm ci
       - name: Build website
         id: build-website
@@ -85,4 +89,4 @@ jobs:
      - name: Output Information
        run: |
         echo "Something Went wrong"
-        echo "${{ github }}"
+        echo "${{ toJSON(github) }}"

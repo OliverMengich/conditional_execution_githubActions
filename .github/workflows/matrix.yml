@@ -1,0 +1,23 @@
+name: Matrix Workflow
+on: push
+jobs:
+  build:
+    #matrix helps to run the same jov with different configuration e.g on differnt runners
+    #add he strategy
+    strategy:
+      matrix:
+        node-version: [12,14,16]
+        operating-system: [ubuntu-latest, windows-latest]
+    #now we set the runner dynamically
+    runs-on: ${{ matrix.operating-system }} # the github actions will run this job multiple times, once per value in he operating-system key
+    steps:
+     - name: Get code
+       uses: actions/checkout@v3
+     - name: Install NodeJS
+       uses: actions/setup-node@v3
+       with:
+         node-version: ${{ matrix.node-version }} # the github actions will run this job multiple times, once per value in the node-version key
+     - name: Install dependencies
+       run: npm ci
+     - name: Build Project
+       run: npm run build 

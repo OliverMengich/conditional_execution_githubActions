@@ -5,6 +5,8 @@ jobs:
     #matrix helps to run the same jov with different configuration e.g on differnt runners
     #add he strategy
     strategy:
+      continue-on-error: true #this tells github actions to continue executing jobs related 
+      # to this matrix even if some jobs/combinations failed
       matrix:
         node-version: [12,14,16]
         operating-system: [ubuntu-latest, windows-latest]

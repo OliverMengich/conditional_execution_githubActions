@@ -1,0 +1,9 @@
+# to make a workflow reusable, it must be callable by other workflows
+name: Reusable Deploy
+on: workflow_call
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output Information
+        run: echo "Deploying & Uploading....."

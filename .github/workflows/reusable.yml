@@ -3,11 +3,14 @@ name: Reusable Deploy
 on: 
   workflow_call:
     inputs: #passing in the artifacts name o help us download it. Incase the name changes dynamically
-    artifact-name: #developer sets this
-      description: Name of deployable artifacts hashFiles
-      required: true #if required if false, woorkflow can run without it being passed. If true, workflow cannot run without it
-      default: dist #this value will be used incase the input is not specified
-      type: string # specify argument to expect
+      artifact-name: #developer sets this
+        description: Name of deployable artifacts hashFiles
+        required: true #if required if false, woorkflow can run without it being passed. If true, workflow cannot run without it
+        default: dist #this value will be used incase the input is not specified
+        type: string # specify argument to expect
+    secrets: #secrets don't have default value
+      some-secret:
+        required: true
 jobs:
   deploy:
     runs-on: ubuntu-latest

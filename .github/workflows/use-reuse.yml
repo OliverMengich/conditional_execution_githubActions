@@ -74,10 +74,11 @@ jobs:
   deploy:
     needs: build
     uses: ./.github/workflows/reusable.yml #provide a full path
-    with:
+    with: #use with: to provide inputs
       #provide input value
       artifact-name: dist-files
-    
+    secrets: #use secrets to provide a secret
+      some-secret: ${{ secrets.GITHUB_TOKEN }}
   report:
     needs: [lint, deploy] # this will execute when the lint and deploy and their chain of jobs have failed
     if: failure() #this will run when any other job fails. Failure returns true

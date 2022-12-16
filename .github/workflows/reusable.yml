@@ -11,8 +11,15 @@ on:
     secrets: #secrets don't have default value
       some-secret:
         required: true
+    outputs: #if your workflows emits outputs that should be used e.g in deployment or anythin
+      result:
+        description: the result of deployment operation
+        value:  ${{ jobs.deploy.outputs.outcome }}
 jobs:
+  
   deploy:
+    outputs:
+      outcome: ${{ steps.set-result.outputs.step-result}}
     runs-on: ubuntu-latest
     steps:
       # Adding inputs to reusable workflows
@@ -24,3 +31,6 @@ jobs:
         run: ls
       - name: Output Information
         run: echo "Deploying & Uploading....."
+      - name: Set result output
+        id: set-result
+        run: echo "::set-output name=step-result::success"

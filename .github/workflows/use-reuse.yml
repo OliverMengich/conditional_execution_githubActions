@@ -74,6 +74,9 @@ jobs:
   deploy:
     needs: build
     uses: ./.github/workflows/reusable.yml #provide a full path
+    with:
+      #provide input value
+      artifact-name: dist-files
     
   report:
     needs: [lint, deploy] # this will execute when the lint and deploy and their chain of jobs have failed

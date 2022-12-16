@@ -16,7 +16,6 @@ on:
         description: the result of deployment operation
         value:  ${{ jobs.deploy.outputs.outcome }}
 jobs:
-  
   deploy:
     outputs:
       outcome: ${{ steps.set-result.outputs.step-result}}

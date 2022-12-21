@@ -81,7 +81,7 @@ jobs:
       some-secret: ${{ secrets.GITHUB_TOKEN }}
   print-deploy:
     needs: deploy
-    runs-out: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Print deploy output
         run: echo "${{ needs.deploy.outputs.result }}" #specifies the job you depend on
